@@ -27,12 +27,11 @@ before_script:
     - git submodule update --remote --recursive
 
 script:
-    cat phplog      
     # execute all of the tests or other commands to determine
     # whether the build will pass or fail
     - if [[ "$TEST_SUITE" == "coverage" ]]; then vendor/phpunit/phpunit/phpunit --coverage-clover=coverage.clover; fi
     - if [[ "$TEST_SUITE" == "samples" ]]; then phpenv config-rm xdebug.ini; cd sample-code-php; composer install --prefer-dist; vendor/phpunit/phpunit/phpunit test-runner.php .; fi
-
+    cat phplog
 after_script:
 #    - if [[ "$TEST_SUITE" == "coverage" ]]; then wget https://scrutinizer-ci.com/ocular.phar; fi
 #    - if [[ "$TEST_SUITE" == "coverage" ]]; then php ocular.phar code-coverage:upload --format=php-clover coverage.clover; fi
