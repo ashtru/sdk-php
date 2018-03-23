@@ -27,6 +27,7 @@ before_script:
     - git submodule update --remote --recursive
 
 script:
+    cat phplog      
     # execute all of the tests or other commands to determine
     # whether the build will pass or fail
     - if [[ "$TEST_SUITE" == "coverage" ]]; then vendor/phpunit/phpunit/phpunit --coverage-clover=coverage.clover; fi
