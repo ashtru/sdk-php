@@ -4,12 +4,12 @@ sudo: false
 
 env:
     - TEST_SUITE=samples
-    - TEST_SUITE=coverage
+    #- TEST_SUITE=coverage
 
 php:
-    - 5.6
-    - 7.0
-    - 7.1
+ - 5.6
+  #  - 7.0
+   # - 7.1
 
 before_install:
     # execute all of the commands which need to be executed 
@@ -30,8 +30,8 @@ script:
     # execute all of the tests or other commands to determine
     # whether the build will pass or fail
     - if [[ "$TEST_SUITE" == "coverage" ]]; then vendor/phpunit/phpunit/phpunit --coverage-clover=coverage.clover; fi
-    - if [[ "$TEST_SUITE" == "samples" ]]; then phpenv config-rm xdebug.ini; cd sample-code-php; composer install --prefer-dist; vendor/phpunit/phpunit/phpunit test-runner.php .; fi
-
+    - if [[ "$TEST_SUITE" == "samples" ]]; then phpenv config-rm xdebug.ini; cp -R lib sample-code-php/; cp -R vendor sample-code-php/; cd sample-code-php; vendor/phpunit/phpunit/phpunit test-runner.php .; cat testslog; fi
+  
 after_script:
 #    - if [[ "$TEST_SUITE" == "coverage" ]]; then wget https://scrutinizer-ci.com/ocular.phar; fi
 #    - if [[ "$TEST_SUITE" == "coverage" ]]; then php ocular.phar code-coverage:upload --format=php-clover coverage.clover; fi
